@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github Gossip</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
+    <style>
+        body {
+            background-image: url(blue.png);
+            background-size: cover;
+        }
+    </style>
+
+    <script>
+        var username = $('#gituser').val();
+        var requri   = 'https://api.github.com/users/'+username;
+        var repouri  = 'https://api.github.com/users/'+username+'/repos';
+
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.get("demo_test.asp", function(data, status){
+                    $("p").hide();
+
+
+
+
+
+
+                });
+            });
+    </script>
+
+
+
+
+</head>
+
+
+
+
+<body>
+<!--Jumbotron con el boton de búsqueda de usuarios-->
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1>Github Gossip</h1>
+        <p>Enter a Github username and I will show you some info about her/him.</p>
+    </div>
+    <form class="form-inline">
+        <div class="input-group">
+            <input id="gituser" class="form-control" size="25" placeholder="Github Username" required>
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-primary">Find</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+</body>
+</html>
