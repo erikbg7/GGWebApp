@@ -57,7 +57,7 @@
                             console.log('success',data);
                             var repo = '';      // Variable donde se almacenan los diferentes repositorios y su informacion
                             if (data.length == 0) {
-                                repo = "<div class=\"alert alert-danger\"><strong>No repositories found!</strong> </div>"
+                                repo = "<div class=\"alert alert-danger\"><strong>No repositories found!</strong> </div>";
                                 $("#information").append(repo);
                             }
                             $.each(data, function(i) {
