@@ -15,7 +15,7 @@
             background-size: cover;
         }
     </style>
-
+<!-----------------------------  EMPEZAMOS EL SCRIPT  -------------------------->
     <script>
         $(document).ready(function(){
             $("button").click(function(){
@@ -24,16 +24,21 @@
                 var getrepos  = 'https://api.github.com/users/'+user+'/repos';
                 console.log(user);
 
-                $(document).ready(function () {
+                $(document).ready(function () {         <!-- GET para conseguir foto, followers i following del usuario  -->
                     $.ajax({
                         type: 'GET',
                         url: getuser,
                         success: function(data){
                             console.log('success',data);
-                            console.log(data.login);
-                            },
+
+                            $('#information').html(
+                                '<h3>@<a href="'+data.avatar_url+'" target="_blank">'+user+'</a></h3>'
+                                + '<img src="'+data.avatar_url+'" class="img-thumbnail" width="80" height="80" target="_blank">'
+                                + '<div><p>Followers: '+data.followers+' // Following: '+data.following+'</p></div>'
+                            );
+                        },
                         error: function() {
-                            $('#informacion').append(
+                            $('#information').html(
                                 "<div class=\"alert alert-danger\">\n" +
                                 "  <strong>No user info found!</strong> Try it again with another name.\n" +
                                 "</div>"
@@ -41,13 +46,25 @@
                         }
                     });
                 })
-            });
 
-            //$.getJSON("https://api.github.com/users/erikbg7", {"login":"erik"} , function(result){
-            //    $.each(result, function(i, field){
-            //        $("div").append(field.id + " ");
-            //    });
-            //});
+                $(document).ready(function () {         <!-- GET para conseguir repositorios del usuario  -->
+                    $.ajax({
+                        type: 'GET',
+                        url: getrepos,
+                        success: function(data){
+                            console.log('success',data);
+
+
+                        },
+                        error: function() {
+
+                        }
+                    });
+                })
+
+
+
+            });
         });
     </script>
 
@@ -80,7 +97,7 @@
         </div>
     </form>
 <!--Division con la informacion recibida del usuario: nombre, followers, repositorios...-->
-    <div id="informacion" class="clearfix" style="padding-top: 25px;"></div>
+    <div id="information" class="clearfix" style="padding-top: 10px;"></div>
 
 </div>
 
