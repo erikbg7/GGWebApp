@@ -7,7 +7,7 @@
     <title>Github Gossip</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
         body {
@@ -17,23 +17,42 @@
     </style>
 
     <script>
-        var username = $('#gituser').val();
-        var requri   = 'https://api.github.com/users/'+username;
-        var repouri  = 'https://api.github.com/users/'+username+'/repos';
-
         $(document).ready(function(){
             $("button").click(function(){
-                $.get("demo_test.asp", function(data, status){
-                    $("p").hide();
+                var user = $("input").val();
+                var getuser = 'https://api.github.com/users/'+user;
+                var getrepos  = 'https://api.github.com/users/'+user+'/repos';
+                console.log(user);
 
-
-
-
-
-
-                });
+                $(document).ready(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: getuser,
+                        success: function(data){
+                            console.log('success',data);
+                            console.log(data.login);
+                            },
+                        error: function() {
+                            $('#informacion').append(
+                                "<div class=\"alert alert-danger\">\n" +
+                                "  <strong>No user info found!</strong> Try it again with another name.\n" +
+                                "</div>"
+                            );
+                        }
+                    });
+                })
             });
+
+            //$.getJSON("https://api.github.com/users/erikbg7", {"login":"erik"} , function(result){
+            //    $.each(result, function(i, field){
+            //        $("div").append(field.id + " ");
+            //    });
+            //});
+        });
     </script>
+
+
+
 
 
 
@@ -46,10 +65,12 @@
 <body>
 <!--Jumbotron con el boton de búsqueda de usuarios-->
 <div class="jumbotron text-center">
+<!--Cabecera y texto-->
     <div class="container">
         <h1>Github Gossip</h1>
         <p>Enter a Github username and I will show you some info about her/him.</p>
     </div>
+<!--Label y boton para buscar usuario-->
     <form class="form-inline">
         <div class="input-group">
             <input id="gituser" class="form-control" size="25" placeholder="Github Username" required>
@@ -58,13 +79,16 @@
             </div>
         </div>
     </form>
-
+<!--Division con la informacion recibida del usuario: nombre, followers, repositorios...-->
+    <div id="informacion" class="clearfix" style="padding-top: 25px;"></div>
 
 </div>
 
-<!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-<!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
-
 </body>
 </html>
+
+
+<!--////////////////////////////////data: { get_param: 'value'},
+dataType: 'json',///////////////////////////////////////////////////////////////////-->
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
