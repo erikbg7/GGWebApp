@@ -19,12 +19,14 @@
     <script>
         $(document).ready(function(){
             $("button").click(function(){
+
                 var user = $("input").val();
                 var getuser = 'https://api.github.com/users/'+user;
                 var getrepos  = 'https://api.github.com/users/'+user+'/repos';
-                console.log(user);
 
-                $(document).ready(function () {         <!-- GET para conseguir foto, followers i following del usuario  -->
+//////////////////////////////////////////////  GET para conseguir foto, followers i following del usuario
+                $(document).ready(function () {
+                    $("tbody").html("");
                     $.ajax({
                         type: 'GET',
                         url: getuser,
@@ -46,37 +48,29 @@
                         }
                     });
                 })
-
-                $(document).ready(function () {         <!-- GET para conseguir repositorios del usuario  -->
+////////////////////////////////////////////// GET para conseguir repositorios del usuario
+                $(document).ready(function () {
                     $.ajax({
                         type: 'GET',
                         url: getrepos,
                         success: function(data){
                             console.log('success',data);
-
-
-                        },
-                        error: function() {
-
+                            var repo = '';      // Variable donde se almacenan los diferentes repositorios y su informacion
+                            if (data.length == 0) {
+                                repo = "<div class=\"alert alert-danger\"><strong>No repositories found!</strong> </div>"
+                                $("#information").append(repo);
+                            }
+                            $.each(data, function(i) {
+                                repo = "<tr><td>"+(i+1)+"</td><td>"+data[i].name+"</td><td>"+data[i].description+"</td><td>"+data[i].created_at+"</td></tr>";
+                                $("tbody").append(repo);
+                            });
                         }
                     });
                 })
-
-
-
             });
         });
     </script>
-
-
-
-
-
-
-
 </head>
-
-
 
 
 <body>
@@ -96,16 +90,28 @@
             </div>
         </div>
     </form>
-<!--Division con la informacion recibida del usuario: nombre, followers, repositorios...-->
+
+<!--Division con la informacion recibida del usuario: nombre, foto, followers, following...-->
     <div id="information" class="clearfix" style="padding-top: 10px;"></div>
 
+<!--Division con la informacion de los repositorios en forma de tabla-->
+    <div class="container text-left clearfix">
+        <h2>Repository List</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
 </body>
 </html>
-
-
-<!--////////////////////////////////data: { get_param: 'value'},
-dataType: 'json',///////////////////////////////////////////////////////////////////-->
-
-<!--///////////////////////////////////////////////////////////////////////////////////////////////////-->
